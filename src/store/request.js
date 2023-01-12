@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {setErrorsetError} from "./errors";
 import todosService from "../services/todos.service";
 
-const initialState = {isLoading: false} // задаём начальное состояние
+const initialState = {text: '', isLoading: false} // задаём начальное состояние
 
 // прописываем алгоритм: при каком action как менять состояние
 const requestSlice = createSlice({
@@ -11,13 +11,16 @@ const requestSlice = createSlice({
     reducers: {
         taskRequested(state) {
             state.isLoading = true;
+            state.text = 'Loading ...'
         },
-        taskRequestedFinish(state) {
+        taskRequestedFinish(state, {payload}) {
             state.isLoading = false;
+            state.text = payload
         },
         taskRequestFailed(state, action) {
             setErrorsetError(action.payload)
             state.isLoading = true;
+            state.text = 'Error'
         },
     }
 })
@@ -28,13 +31,14 @@ export const actionAsync = () => async dispatch => {
         dispatch(taskRequested())
         const data = await todosService.fetch()
         console.log(data)
-        dispatch(taskRequestedFinish())
+        dispatch(taskRequestedFinish(data))
     } catch (error) {
         dispatch(setErrorsetError(error.message))
         dispatch(taskRequestFailed())
     }
 }
 
+export const getRequest = () => state => state.request
 
 const {actions, reducer: requestReducer} = requestSlice
 const {taskRequested, taskRequestFailed, taskRequestedFinish} = actions

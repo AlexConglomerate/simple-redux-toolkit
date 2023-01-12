@@ -27,10 +27,6 @@ const {increment, decrement} = actions
 export const actionCountIncremented = number => increment(number)
 export const actionCountDecremented = number => decrement(number)
 
-// export const actionCountIncrementedError = number => {
-//     increment(number)
-//     increment({}) // намеренно создаю ошибку
-// }
 //
 // // Dispatch и getState забираем из middleware thunk
 // // это чистая функция, а значит мы можем реализовать её в каком угодно файле
