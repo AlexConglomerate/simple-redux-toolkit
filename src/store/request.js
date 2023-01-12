@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {setErrorsetError} from "./errors";
 import todosService from "../services/todos.service";
 
-const initialState = {text: '', isLoading: false} // задаём начальное состояние
+const initialState = {text: null, isLoading: false} // задаём начальное состояние
 
 // прописываем алгоритм: при каком action как менять состояние
 const requestSlice = createSlice({
@@ -11,7 +11,7 @@ const requestSlice = createSlice({
     reducers: {
         taskRequested(state) {
             state.isLoading = true;
-            state.text = 'Loading ...'
+            state.text = null
         },
         taskRequestedFinish(state, {payload}) {
             state.isLoading = false;
@@ -26,7 +26,7 @@ const requestSlice = createSlice({
 })
 
 // Шаблоны всех actions
-export const actionAsync = () => async dispatch => {
+export const actionAsync = () => async (dispatch) => {
     try {
         dispatch(taskRequested())
         const data = await todosService.fetch()
