@@ -30,7 +30,6 @@ export const actionAsync = () => async (dispatch) => {
     try {
         dispatch(taskRequested())
         const data = await todosService.fetch()
-        console.log(data)
         dispatch(taskRequestedFinish(data))
     } catch (error) {
         dispatch(setErrorsetError(error.message))

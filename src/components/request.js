@@ -7,6 +7,7 @@ function Request() {
 
     const {text, isLoading} = useSelector(getRequest())
     const error = useSelector(getError())
+
     const handleRequest = () => dispatch(actionAsync())
 
     const headerClass = 'text-3xl hover:font-bold text-red-800 m-1'
@@ -20,7 +21,7 @@ function Request() {
             <ul className="m-5 list-none md:list-disc">
                 {Array.isArray(text) &&
                     text.map(i => (
-                        <li className="my-2"> {i.title}</li>
+                        <li className="my-2"> {i.title.substring(0,25)} ... </li>
                     ))}
             </ul>
 

@@ -7,6 +7,7 @@ function App() {
         <div className={'flex flex-row'}>
             <Calc/>
             <Request/>
+            <Request2/>
         </div>
     )
 }
